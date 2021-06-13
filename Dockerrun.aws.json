@@ -8,9 +8,9 @@
       }
     }, 
     {
-      "name": "_react_frontend",
+      "name": "_react_frontend_build",
       "host": {
-        "sourcePath": "/var/app/current/react-frontend"
+        "sourcePath": "/var/app/current/react-frontend/build"
       }
     },      
     {
@@ -60,7 +60,7 @@
       "command": [
           "sh",
           "-c",
-          "yarn install && yarn build && yarn server"
+          "yarn server"
       ],      
       "portMappings": [
           {
@@ -70,7 +70,7 @@
       ],      
       "mountPoints": [
         {
-          "sourceVolume": "_react_frontend",
+          "sourceVolume": "_react_frontend_build",
           "containerPath": "/code",
           "readOnly": true
         }
