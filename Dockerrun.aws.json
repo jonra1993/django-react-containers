@@ -60,7 +60,7 @@
       "command": [
           "sh",
           "-c",
-          "yarn server"
+          "yarn install && yarn install && yarn server"
       ],      
       "portMappings": [
           {
