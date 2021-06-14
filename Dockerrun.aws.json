@@ -8,6 +8,12 @@
       }
     },
     {
+      "name": "_django_staticfiles",
+      "host": {
+        "sourcePath": "/var/app/current/django_backend/staticfiles"
+      }
+    },    
+    {
       "name": "_config_template",
       "host": {
         "sourcePath": "/var/app/current/nginx-config-files/app.nginx.template"
@@ -83,7 +89,12 @@
           "sourceVolume": "_nginx_conf",
           "containerPath": "/etc/nginx/nginx.conf",
           "readOnly": true
-        }
+        },
+        {
+          "sourceVolume": "_django_staticfiles",
+          "containerPath": "/code/staticfiles",
+          "readOnly": true
+        }        
       ]
     }
   ]
