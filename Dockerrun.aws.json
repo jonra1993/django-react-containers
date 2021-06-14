@@ -51,30 +51,6 @@
           "readOnly": true
         }
       ]
-    },  
-    {
-      "name": "node",
-      "image": "jrtec/node-container",
-      "essential": true,
-      "memory": 200,
-      "command": [
-          "sh",
-          "-c",
-          "yarn install && yarn install && yarn server"
-      ],      
-      "portMappings": [
-          {
-              "containerPort": 8081,
-              "hostPort": 3000
-          }
-      ],      
-      "mountPoints": [
-        {
-          "sourceVolume": "_react_frontend_build",
-          "containerPath": "/code",
-          "readOnly": true
-        }
-      ]
     },        
     {
       "name": "nginx",
@@ -88,8 +64,7 @@
         }
       ],
       "links": [
-        "django",
-        "node"
+        "django"
       ],
       "mountPoints": [
         {
