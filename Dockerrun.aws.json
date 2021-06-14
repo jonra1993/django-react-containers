@@ -6,13 +6,7 @@
       "host": {
         "sourcePath": "/var/app/current/django_backend"
       }
-    }, 
-    {
-      "name": "_react_frontend_build",
-      "host": {
-        "sourcePath": "/var/app/current/react-frontend/build"
-      }
-    },      
+    },
     {
       "name": "_config_template",
       "host": {
@@ -24,26 +18,46 @@
       "host": {
         "sourcePath": "/var/app/current/nginx-config-files/nginx.conf"
       }
-    }      
-
+    }
   ],
   "containerDefinitions": [
+    {
+      "essential": true,
+      "image": "bitnami/postgresql:13.3.0",      
+      "memory": 150,
+      "name": "db"
+    },    
+    {
+      "essential": true,
+      "image": "dpage/pgadmin4:5.3",
+      "name": "pgadmin4",
+      "links": [
+        "db"
+      ],
+      "memory": 150,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 5050
+        }
+      ]
+    },
     {
       "name": "django",
       "image": "jrtec/django-video-inspections",
       "essential": true,
       "memory": 300,
       "command": [
-          "sh",
-          "-c",
-          "python manage.py makemigrations && python manage.py migrate && gunicorn django_backend.wsgi:application --bind 0.0.0.0:8000"
-      ],      
+        "sh",
+        "-c",
+        "python manage.py makemigrations && python manage.py migrate && gunicorn django_backend.wsgi:application --bind 0.0.0.0:8000"
+      ],
       "portMappings": [
-          {
-              "containerPort": 8000,
-              "hostPort": 5050
-          }
-      ],      
+        {
+          "containerPort": 8000,
+          "hostPort": 5000
+        }
+      ],
       "mountPoints": [
         {
           "sourceVolume": "_django_backend",
@@ -51,12 +65,12 @@
           "readOnly": true
         }
       ]
-    },        
+    },
     {
       "name": "nginx",
       "image": "nginx:1.19.10",
       "essential": true,
-      "memory": 128,    
+      "memory": 128,
       "portMappings": [
         {
           "hostPort": 80,
