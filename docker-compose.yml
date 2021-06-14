@@ -4,7 +4,7 @@ services:
   db:
     container_name: db
     restart: always
-    image: "bitnami/postgresql:${POSTGRESQL_VERSION}"    
+    image: "bitnami/postgresql:13.3.0"    
     expose:
       - "5432"    
     environment:
@@ -55,8 +55,8 @@ services:
       - ./django_backend:/code
     expose:
       - "8000" 
-    ports:
-      - "5000:8000"  
+    # ports:
+    #   - "5000:8000"  
     # depends_on:
     #   - db    
     
@@ -67,6 +67,7 @@ services:
     ports:
       - "80:8080"
     volumes:
+      - ./django_backend/staticfiles:/code/staticfiles
       - ./nginx-config-files/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx-config-files/app.nginx.template:/etc/nginx/templates/app.nginx.template
     environment:      

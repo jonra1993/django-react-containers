@@ -12,6 +12,8 @@ python3 -m venv venv
 source venv/bin/activate
 deactivate
 
+python manage.py collectstatic
+
 
 ### Docker
 docker compose up -d
